@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.basic.mapper.Code_rule_headMapper">
+	<!-- 结果集映射 -->
+	<resultMap id="code_rule_headResultMap" type="com.fox.basic.vo.request.Code_rule_headVo">
+		<id column="id" property="id" jdbcType="NUMERIC"/>
+		<result column="org_id" property="orgid" jdbcType="VARCHAR"/>
+		<result column="father_id" property="fatherid" jdbcType="NUMERIC"/>
+		<result column="father_att" property="fatheratt" jdbcType="VARCHAR"/>
+		<result column="child_att" property="childatt" jdbcType="VARCHAR"/>
+		<result column="is_del" property="isdel" jdbcType="CHAR"/>
+		<result column="create_datetime" property="createdatetime" jdbcType="TIMESTAMP"/>
+		<result column="create_userid" property="createuserid" jdbcType="VARCHAR"/>
+		<result column="last_update_datetime" property="lastupdatedatetime" jdbcType="TIMESTAMP"/>
+		<result column="last_update_userid" property="lastupdateuserid" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+
+	
+	<!-- 列定义 -->
+	<sql id="code_rule_headColumns">
+	  t.id,
+	  t.org_id,
+	  t.father_id,
+	  t.father_att,
+	  t.child_att,
+	  t.is_del,
+	  t.create_datetime,
+	  t.create_userid,
+	  t.last_update_datetime,
+	  t.last_update_userid,
+	  t.remark
+  	</sql>
+	
+	<!-- 查询条件SQL -->
+	<sql id="whereColumnBySelect">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id !=''">
+				AND t.id = #{id}
+			</if>
+			<if test="orgid != null and orgid !=''">
+				AND t.org_id = #{orgid}
+			</if>
+			<if test="fatherid != null and fatherid !=''">
+				AND t.father_id = #{fatherid}
+			</if>
+			<if test="fatheratt != null and fatheratt !=''">
+				AND t.father_att = #{fatheratt}
+			</if>
+			<if test="childatt != null and childatt !=''">
+				AND t.child_att = #{childatt}
+			</if>
+			<if test="isdel != null and isdel !=''">
+				AND t.is_del = #{isdel}
+			</if>
+			<if test="createuserid != null and createuserid !=''">
+				AND t.create_userid = #{createuserid}
+			</if>
+			<if test="lastupdateuserid != null and lastupdateuserid !=''">
+				AND t.last_update_userid = #{lastupdateuserid}
+			</if>
+			<if test="remark != null and remark !=''">
+				AND t.remark = #{remark}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 修改字段SQL -->
+	<sql id="whereColumnByUpdate">
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="orgid != null">
+				t.org_id = #{orgid},
+			</if>
+			<if test="fatherid != null">
+				t.father_id = #{fatherid},
+			</if>
+			<if test="fatheratt != null">
+				t.father_att = #{fatheratt},
+			</if>
+			<if test="childatt != null">
+				t.child_att = #{childatt},
+			</if>
+			<if test="isdel != null">
+				t.is_del = #{isdel},
+			</if>
+			<if test="createdatetime != null">
+				t.create_datetime = #{createdatetime},
+			</if>
+			<if test="createuserid != null">
+				t.create_userid = #{createuserid},
+			</if>
+			<if test="lastupdatedatetime != null">
+				t.last_update_datetime = #{lastupdatedatetime},
+			</if>
+			<if test="lastupdateuserid != null">
+				t.last_update_userid = #{lastupdateuserid},
+			</if>
+			<if test="remark != null">
+				t.remark = #{remark},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 根据主键ID获取数据 -->
+	<select id="get" parameterType="com.fox.basic.vo.request.Code_rule_headVo" resultMap="code_rule_headResultMap">
+		SELECT <include refid="code_rule_headColumns" /> 
+		FROM code_rule_head t 
+		WHERE t.id = #{id}
+	</select>
+	
+	<!-- 查询列表可以根据分页进行查询 -->
+	<select id="findList" parameterType="com.fox.basic.vo.request.Code_rule_headVo" resultMap="code_rule_headResultMap">
+		SELECT
+		<include refid="code_rule_headColumns" /> 
+		FROM code_rule_head t 
+		<include refid="whereColumnBySelect" />
+		   ORDER BY t.id DESC
+	</select>
+	
+	<!-- 查询所有列表 -->
+	<select id="findAllList" parameterType="com.fox.basic.vo.request.Code_rule_headVo" resultMap="code_rule_headResultMap">
+		SELECT
+		<include refid="code_rule_headColumns" /> 
+		FROM code_rule_head t 
+		<include refid="whereColumnBySelect" />
+		ORDER BY t.id DESC
+	</select>
+	
+	<!-- 根据条件查询对象 -->
+	<select id="getByEntity" parameterType="com.fox.basic.vo.request.Code_rule_headVo" resultMap="code_rule_headResultMap">
+		SELECT <include refid="code_rule_headColumns" /> 
+		FROM code_rule_head t 
+		<include refid="whereColumnBySelect"></include>
+	</select>
+	
+	<!-- 新增并设置主键ID至参数对象 -->
+	<insert id="insert" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+		INSERT INTO code_rule_head
+			(id, org_id, father_id, father_att, child_att, is_del, create_datetime, create_userid, last_update_datetime, last_update_userid, remark)
+		VALUES
+			(#{id}, #{orgid}, #{fatherid}, #{fatheratt}, #{childatt}, #{isdel}, #{createdatetime}, #{createuserid}, #{lastupdatedatetime}, #{lastupdateuserid}, #{remark})
+	</insert>
+	
+	<!-- 新增并设置主键ID判断哪些列不为空时，则进行插入 -->
+	<insert id="insertSelective" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+	    INSERT INTO code_rule_head
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orgid != null">
+				org_id,
+			</if>
+			<if test="fatherid != null">
+				father_id,
+			</if>
+			<if test="fatheratt != null">
+				father_att,
+			</if>
+			<if test="childatt != null">
+				child_att,
+			</if>
+			<if test="isdel != null">
+				is_del,
+			</if>
+			<if test="createdatetime != null">
+				create_datetime,
+			</if>
+			<if test="createuserid != null">
+				create_userid,
+			</if>
+			<if test="lastupdatedatetime != null">
+				last_update_datetime,
+			</if>
+			<if test="lastupdateuserid != null">
+				last_update_userid,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		  <if test="id != null">
+				#{id,jdbcType=NUMERIC},
+		  </if>
+		  <if test="orgid != null">
+				#{orgid,jdbcType=VARCHAR},
+		  </if>
+		  <if test="fatherid != null">
+				#{fatherid,jdbcType=NUMERIC},
+		  </if>
+		  <if test="fatheratt != null">
+				#{fatheratt,jdbcType=VARCHAR},
+		  </if>
+		  <if test="childatt != null">
+				#{childatt,jdbcType=VARCHAR},
+		  </if>
+		  <if test="isdel != null">
+				#{isdel,jdbcType=CHAR},
+		  </if>
+		  <if test="createdatetime != null">
+				#{createdatetime,jdbcType=TIMESTAMP},
+		  </if>
+		  <if test="createuserid != null">
+				#{createuserid,jdbcType=VARCHAR},
+		  </if>
+		  <if test="lastupdatedatetime != null">
+				#{lastupdatedatetime,jdbcType=TIMESTAMP},
+		  </if>
+		  <if test="lastupdateuserid != null">
+				#{lastupdateuserid,jdbcType=VARCHAR},
+		  </if>
+		  <if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+		  </if>
+	    </trim>
+  	</insert>
+  	
+  	<!-- 根据主键ID进行修改 -->
+  	<update id="update" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		UPDATE code_rule_head t 
+		<include refid="whereColumnByUpdate"></include>
+		<where>
+			t.id = #{id,jdbcType=NUMERIC}
+		</where>
+	</update>
+	
+	<!-- 根据条件进行修改 -->
+	<update id="updateByCondition" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		UPDATE code_rule_head t 
+		<include refid="whereColumnByUpdate"></include>
+		<where>${whereSqlParam}</where>
+	</update>
+
+	<!-- 根据主键ID进行逻辑删除 -->
+	<update id="delete" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		UPDATE code_rule_head t SET
+		t.IS_DELETED = 1
+		WHERE t.id = #{id,jdbcType=NUMERIC}
+	</update>
+
+	<!-- 根据主键ID进行批量逻辑删除 -->
+	<update id="batchDelete" parameterType="java.util.List">
+		UPDATE code_rule_head t SET
+		t.IS_DELETED = 1
+		WHERE t.id IN
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 根据主键ID进行物理删除 -->
+	<delete id="remove" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		DELETE t.* FROM code_rule_head t
+		WHERE t.id = #{id,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 根据主键ID进行批量物理删除 -->
+	<delete id="batchRemove" parameterType="java.util.List">
+		DELETE t.* FROM code_rule_head t
+		WHERE t.id IN
+		<foreach item="item" collection="list" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	
+	<!-- 根据条件进行逻辑删除 -->
+	<update id="deleteByEntity" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+		UPDATE code_rule_head t SET
+			t.IS_DELETED = 1
+		<include refid="whereColumnBySelect"/>
+	</update>
+
+	<delete id="removeByEntity" parameterType="com.fox.basic.vo.request.Code_rule_headVo">
+        DELETE t.* FROM meet_subsidiary t
+        <include refid="whereColumnBySelect"></include>
+    </delete>
+</mapper>

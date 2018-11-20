@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codeGenerator>
+
+	<!-- 【必填项】JDBC数据库连接配置 -->
+	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+		connectionURL="jdbc:mysql://127.0.0.1:3306/test" user="root"
+		password="ryx.com" />
+
+	<!-- 【可选项】代码文件编码方式，缺省默认为“UTF-8” -->
+	<fileEncoding>UTF-8</fileEncoding>
+
+	<!-- 【可选项】数据库与Java数据类型转换 -->
+	<typeConvert>
+		<!-- <integer javaType="Integer" />
+		<decimal javaType="Double" /> -->
+	</typeConvert>
+
+	<!-- 【必填项】包生成方式配置，module-模块划分（默认）、category-分层归类、customization-自定义 -->
+	<packages type="module" project="basic">
+		<!-- 【可选项】实体类全限定包名 -->
+		<entity>com.fox.basic.vo</entity>
+		<!-- 【可选项】DAO类全限定包名 -->
+		<dao>com.fox.basic.mapper</dao>
+		<!-- 【可选项】MyBatis关系映射文件全限定包名 -->
+		<sqlMapper>com.fox.basic.mapperResource.mapper</sqlMapper>
+		<!-- 【可选项】Service接口全限定包名 -->
+		<service>com.fox.basic.service</service>
+		<!-- 【可选项】Service实现类全限定包名 -->
+		<serviceImpl>com.fox.basic.service.impl</serviceImpl>
+		<!-- 【可选项】Controller类全限定包名 -->
+		<controller>com.fox.basic.controller</controller>
+		<!-- 【可选项】JSP文件全限定包名 -->
+		<jsp></jsp>
+	</packages>
+
+	<!-- 可以自定义指定需要生成代码的数据库表配置 -->
+	<table tableName="code_rule_head" domainObjectName="code_rule_head">
+
+
+	</table>
+	<!-- 配置各个模块对应的表，多个表以英文逗号,分隔 -->
+	<!--<module moduleName="city">-->
+		<!--<tableNames>city2-->
+		<!--</tableNames>-->
+	<!--</module>-->
+
+
+</codeGenerator>
